@@ -1,7 +1,9 @@
 package com.example.hackatonbndes.ui.activity
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
+import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -14,8 +16,10 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.hackatonbndes.R
+import com.example.hackatonbndes.model.Restaurante
+import com.example.hackatonbndes.ui.adapter.RestauranteAdapter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ClickReserva,AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -42,6 +46,9 @@ class MainActivity : AppCompatActivity() {
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        var restauranteAdapter = RestauranteAdapter(arrayListOf(),this,this)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -53,5 +60,9 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun realizarReserva() {
+        val rootView: View = layoutInflater.inflate(R.layout.alert_dialog_realizar_reserva, null)
     }
 }
