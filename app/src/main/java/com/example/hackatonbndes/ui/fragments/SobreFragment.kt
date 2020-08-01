@@ -24,9 +24,9 @@ class SobreFragment : Fragment() {
                 ViewModelProviders.of(this).get(SobreViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_sobre, container, false)
         val textView: TextView = root.findViewById(R.id.text_slideshow)
-        sobreViewModel.text.observe(viewLifecycleOwner, Observer {
+        /*sobreViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
-        })
+        })*/
         return root
     }
 }
