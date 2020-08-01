@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_restaurante"
+            android:icon="@drawable/ic_restaurante_24dp"
+            android:title="@string/menu_restaurante" />
+        <item
+            android:id="@+id/nav_reservas"
+            android:icon="@drawable/ic_reservas_24dp"
+            android:title="@string/menu_reservas" />
+        <item
+            android:id="@+id/nav_sobre"
+            android:icon="@drawable/ic_info_24dp"
+            android:title="@string/menu_sobre" />
+    </group>
+</menu>
