@@ -21,6 +21,14 @@ import com.example.hackatonbndes.ui.adapter.RestauranteAdapter
 
 class MainActivity : ClickReserva,AppCompatActivity() {
 
+    companion object{
+        lateinit var instance : MainActivity
+    }
+
+    init {
+        instance = this
+    }
+
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +55,7 @@ class MainActivity : ClickReserva,AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        var restauranteAdapter = RestauranteAdapter(arrayListOf(),this,this)
+        var restauranteAdapter = RestauranteAdapter(arrayListOf(),this)
 
     }
 
@@ -62,7 +70,8 @@ class MainActivity : ClickReserva,AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun realizarReserva() {
+    override fun realizarReserva(view: View) {
         val rootView: View = layoutInflater.inflate(R.layout.alert_dialog_realizar_reserva, null)
     }
+
 }
