@@ -12,13 +12,12 @@ class RestauranteRepository {
     fun getAll() : List<Restaurante>{
 
         return restauranteDao.getAll().map {
-            Restaurante(it.nome,it.endereco,it.vagas,it.horario_abrir,it.endereco,it.CNPJ)
+            Restaurante(it.nome,it.endereco,it.vagas,it.horario_abrir,it.horario_fechar,it.CNPJ)
         }
     }
 
     fun add(restaurante: Restaurante){
-        var r = Random
-        var restauranteEntity = RestauranteEntity("CNPJOK" + r.nextInt(10).toString(),"NOMEOK"+ r.nextInt(10).toString(),"ENDEREÇO OK"+ r.nextInt(10).toString(),10,15,18)
+        var restauranteEntity = RestauranteEntity(restaurante.cnpj ,restaurante.nome,restaurante.endereco,restaurante.capacidade,restaurante.horarioAbrir,restaurante.horarioFechar)
         restauranteDao.add(restauranteEntity)
     }
 }

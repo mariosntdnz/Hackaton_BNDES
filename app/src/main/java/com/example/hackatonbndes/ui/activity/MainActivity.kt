@@ -1,25 +1,25 @@
 package com.example.hackatonbndes.ui.activity
 
+import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.example.hackatonbndes.R
-import com.example.hackatonbndes.model.Restaurante
 import com.example.hackatonbndes.ui.adapter.RestauranteAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 
-class MainActivity : ClickReserva,AppCompatActivity() {
+
+class MainActivity : AppCompatActivity() {
 
     companion object{
         lateinit var instance : MainActivity
@@ -55,8 +55,6 @@ class MainActivity : ClickReserva,AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        var restauranteAdapter = RestauranteAdapter(arrayListOf(),this)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -68,10 +66,6 @@ class MainActivity : ClickReserva,AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
-    override fun realizarReserva(view: View) {
-        val rootView: View = layoutInflater.inflate(R.layout.alert_dialog_realizar_reserva, null)
     }
 
 }

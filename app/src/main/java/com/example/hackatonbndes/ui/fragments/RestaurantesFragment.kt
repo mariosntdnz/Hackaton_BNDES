@@ -26,7 +26,13 @@ class RestaurantesFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        for (i in 1..10) restaurantesViewModel.add()
+        /*val pref =
+            requireActivity().applicationContext.getSharedPreferences("createBD", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putBoolean("initDB", true);
+        editor.commit()*/
+
+        restaurantesViewModel.add()
 
         restaurantesViewModel.response().observe(this, Observer { response->processResponse(response) })
         restaurantesViewModel.getRestaurantes()
@@ -35,13 +41,9 @@ class RestaurantesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_restaurantes, container, false)
     }
 
-    private fun preparaRecycler(restaurantes: List<Restaurante>){
+    private fun exibeRestaurantes(restaurantes: List<Restaurante>){
 
-        val adapter =
-            RestauranteAdapter(
-                restaurantes,
-                requireActivity())
-
+        val adapter = RestauranteAdapter(restaurantes,requireActivity())
         recyclerViewRestaurantes.layoutManager = LinearLayoutManager(context)
         recyclerViewRestaurantes.adapter = adapter
     }
@@ -55,7 +57,7 @@ class RestaurantesFragment : Fragment() {
 
     private fun responseSuccess(result : Any?){
         result as List<Restaurante>
-        preparaRecycler(result)
+        exibeRestaurantes(result)
     }
 
     private fun responseFailure(erro: Throwable?){
