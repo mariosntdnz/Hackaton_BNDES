@@ -14,12 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hackatonbndes.R
 import com.example.hackatonbndes.common.Response
 import com.example.hackatonbndes.common.Status
+import com.example.hackatonbndes.model.Reserva
 import com.example.hackatonbndes.model.Restaurante
 import com.example.hackatonbndes.ui.adapter.RestauranteAdapter
 import com.example.hackatonbndes.ui.viewModel.RestaurantesViewModel
 import kotlinx.android.synthetic.main.fragment_restaurantes.*
+import kotlinx.coroutines.delay
 
-class RestaurantesFragment : Fragment() {
+class RestaurantesFragment : RealizarReserva,InfoCliente,Fragment() {
 
     private val restaurantesViewModel = RestaurantesViewModel()
 
@@ -35,15 +37,15 @@ class RestaurantesFragment : Fragment() {
         restaurantesViewModel.add()
 
         restaurantesViewModel.response().observe(this, Observer { response->processResponse(response) })
-        restaurantesViewModel.getRestaurantes()
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_restaurantes, container, false)
     }
 
     private fun exibeRestaurantes(restaurantes: List<Restaurante>){
 
-        val adapter = RestauranteAdapter(restaurantes,requireActivity())
+        val adapter = RestauranteAdapter(restaurantes,requireActivity(),this,this,this)
         recyclerViewRestaurantes.layoutManager = LinearLayoutManager(context)
         recyclerViewRestaurantes.adapter = adapter
     }
@@ -62,5 +64,17 @@ class RestaurantesFragment : Fragment() {
 
     private fun responseFailure(erro: Throwable?){
         Toast.makeText(requireContext(), "erro ao fazer consulta", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun realizarReserva(reserva: Reserva){
+       // restaurantesViewModel.realizarReservas(reserva)
+    }
+
+    override fun checkReservaExistente(reserva: Reserva): String {
+        return ""
+    }
+
+    override fun getCpfCliente(): String {
+        return "123.123.123.12"
     }
 }

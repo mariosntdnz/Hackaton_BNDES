@@ -38,6 +38,10 @@ class CustomAlertDialog(
         alertDialog.show()
     }
 
+    fun fechar(){
+        alertDialog.dismiss()
+    }
+
     private fun showListener(): OnShowListener {
         return OnShowListener { dialog: DialogInterface ->
             val positive = alertDialog.getButton(
@@ -65,7 +69,6 @@ class CustomAlertDialog(
 
             positive.setOnClickListener{
                 positiveClick.value = true
-                alertDialog.dismiss()
             }
         }
     }

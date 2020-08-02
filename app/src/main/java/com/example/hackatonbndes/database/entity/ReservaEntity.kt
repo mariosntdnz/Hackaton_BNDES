@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "reserva")
 public class ReservaEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    var id : Int?,
     var CPF : String,
     var CNPJ: String,
     var lugares_reservados : Int,

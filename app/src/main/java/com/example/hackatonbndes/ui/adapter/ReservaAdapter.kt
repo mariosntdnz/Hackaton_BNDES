@@ -25,9 +25,9 @@ class ReservaAdapter(private val reservas : ArrayList<Reserva>, private val cont
 
         val reserva = reservas[position]
 
-        holder.itemView.textViewNome.text = reserva.nomeRestaurante
-        holder.itemView.textViewEndereco.text = reserva.endereco
-        holder.itemView.textViewDataReserva.text = reserva.dataReserva
+        holder.itemView.textViewNome.text = ""
+        holder.itemView.textViewEndereco.text = ""
+        holder.itemView.textViewDataReserva.text = ""
 
         holder.itemView.buttonReservar.setOnClickListener {
             reservas.remove(reservas[position])

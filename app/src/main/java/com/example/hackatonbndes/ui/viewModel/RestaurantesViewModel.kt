@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.hackatonbndes.common.Response
+import com.example.hackatonbndes.model.Reserva
 import com.example.hackatonbndes.model.Restaurante
 import com.example.hackatonbndes.repository.RestauranteRepository
 import kotlinx.coroutines.CoroutineScope
@@ -45,7 +46,14 @@ class RestaurantesViewModel : ViewModel() {
             repository.add(Restaurante("Point do Vinho","Rua Ulysses Guimarães 300", 50, 19, 23, "28. 150. 040/2020-43"))
             repository.add(Restaurante("RJ goumert",    "central do brasil",         34, 15, 21, "85. 108. 050/2020-20"))
             repository.add(Restaurante("Binho lanches", "rua bueno aires 12",        33, 15, 19, "10. 199. 060/2020-55"))
+            getRestaurantes()
+        }
 
+    }
+
+    fun realizarReservas(reserva: Reserva){
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.realizarReserva(reserva)
         }
     }
 
