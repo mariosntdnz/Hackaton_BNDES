@@ -69,6 +69,7 @@ class CustomAlertDialog(
 
             positive.setOnClickListener{
                 positiveClick.value = true
+                alertDialog.dismiss()
             }
         }
     }

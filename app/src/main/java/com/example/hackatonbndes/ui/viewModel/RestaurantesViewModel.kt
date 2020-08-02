@@ -15,6 +15,7 @@ import kotlin.random.Random
 class RestaurantesViewModel : ViewModel() {
 
     private val response = MutableLiveData<Response>()
+    private val checkReserva = MutableLiveData<Response>()
     private val repository = RestauranteRepository()
 
     fun getRestaurantes(){
@@ -55,6 +56,16 @@ class RestaurantesViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             repository.realizarReserva(reserva)
         }
+    }
+
+    fun checkReservaExistente(reserva : Reserva) {
+        CoroutineScope(Dispatchers.IO).launch {
+            checkReserva.postValue(Response.success(repository.checkReservaExistente(reserva)))
+        }
+    }
+
+    fun responseReserva(): MutableLiveData<Response> {
+        return checkReserva
     }
 
     fun response(): MutableLiveData<Response> {

@@ -16,6 +16,9 @@ interface RestauranteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun realizarReserva(reservaEntity: ReservaEntity)
 
+    @Query("select SUM(lugares_reservados) from reserva where CNPJ = :cnpj and horario_chegar <= :horarioInicio and horario_sair >= :horarioFim and dia = :dia and mes = :mes and ano = :ano")
+    fun checkReservaExistente(cnpj : String,horarioInicio : Int,horarioFim : Int, dia : Int, mes : Int , ano : Int) : Int
+
     @Delete
     fun delete(restauranteEntity: RestauranteEntity)
 }

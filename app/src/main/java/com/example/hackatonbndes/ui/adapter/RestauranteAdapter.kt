@@ -130,16 +130,7 @@ class RestauranteAdapter(private val restaurantes : List<Restaurante>,
                 }
                 if (dismiss == true) {
                     reserva = Reserva(restaurante.cnpj,infoClienteInterface.getCpfCliente(),numPessoasReserva.text.toString().toInt(),auxHoraInicio,auxHoraFim,dia,mes,ano)
-                    var checkReserva = realizarReservaInterface.checkReservaExistente(reserva!!)
-                    if(checkReserva == ""){
-                        realizarReservaInterface.realizarReserva(reserva!!)
-                        alertDialog.fechar()
-                        Toast.makeText(fragmentContext.requireContext(), "Parabéns! Reserva Efetuada Com Sucesso", Toast.LENGTH_SHORT).show()
-
-                    }
-                    else{
-                        Toast.makeText(fragmentContext.requireContext(), "", Toast.LENGTH_SHORT).show()
-                    }
+                    realizarReservaInterface.realizarReserva(reserva!!,restaurante.capacidade - numPessoasReserva.text.toString().toInt())
                 }
             }
         })

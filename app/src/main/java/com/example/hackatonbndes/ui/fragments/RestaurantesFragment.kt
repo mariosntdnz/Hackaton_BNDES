@@ -1,12 +1,9 @@
 package com.example.hackatonbndes.ui.fragments
 
-import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,11 +16,12 @@ import com.example.hackatonbndes.model.Restaurante
 import com.example.hackatonbndes.ui.adapter.RestauranteAdapter
 import com.example.hackatonbndes.ui.viewModel.RestaurantesViewModel
 import kotlinx.android.synthetic.main.fragment_restaurantes.*
-import kotlinx.coroutines.delay
 
 class RestaurantesFragment : RealizarReserva,InfoCliente,Fragment() {
 
     private val restaurantesViewModel = RestaurantesViewModel()
+    private var capacidade = 0
+    private lateinit var reserva : Reserva
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +35,7 @@ class RestaurantesFragment : RealizarReserva,InfoCliente,Fragment() {
         restaurantesViewModel.add()
 
         restaurantesViewModel.response().observe(this, Observer { response->processResponse(response) })
+        restaurantesViewModel.responseReserva().observe(this, Observer { response->processCheckReserva(response)})
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
@@ -56,6 +55,24 @@ class RestaurantesFragment : RealizarReserva,InfoCliente,Fragment() {
             else -> throw Exception("processResponseInformacoes error")
         }
     }
+    private fun processCheckReserva(response: Response){
+        when (response.status) {
+            Status.SUCCESS -> responseSuccessCheckReserva(response.data)
+            Status.ERROR -> responseFailure(response.error)
+            else -> throw Exception("processResponseInformacoes error")
+        }
+    }
+
+    private fun responseSuccessCheckReserva(result : Any?){
+        result as Int
+        if(result > capacidade){
+            Toast.makeText(requireContext(), "Não temos vagas disponíveis no horário selecionado", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            restaurantesViewModel.realizarReservas(reserva)
+            Toast.makeText(requireContext(), "Parabéns! Reserva Efetuada Com Sucesso", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private fun responseSuccess(result : Any?){
         result as List<Restaurante>
@@ -66,12 +83,14 @@ class RestaurantesFragment : RealizarReserva,InfoCliente,Fragment() {
         Toast.makeText(requireContext(), "erro ao fazer consulta", Toast.LENGTH_SHORT).show()
     }
 
-    override fun realizarReserva(reserva: Reserva){
-       // restaurantesViewModel.realizarReservas(reserva)
+    override fun realizarReserva(reserva: Reserva,capacidade: Int){
+        checkReservaExistente(reserva,capacidade)
     }
 
-    override fun checkReservaExistente(reserva: Reserva): String {
-        return ""
+    override fun checkReservaExistente(reserva: Reserva,capacidade: Int) {
+        restaurantesViewModel.checkReservaExistente(reserva)
+        this.capacidade = capacidade
+        this.reserva = reserva
     }
 
     override fun getCpfCliente(): String {

@@ -16,7 +16,7 @@ class ReservaAdapter(private val reservas : ArrayList<Reserva>, private val cont
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_inflar_restaurante,parent,false))
+        return MyViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_inflar_reserva,parent,false))
     }
 
     override fun getItemCount() = reservas.size
@@ -25,11 +25,11 @@ class ReservaAdapter(private val reservas : ArrayList<Reserva>, private val cont
 
         val reserva = reservas[position]
 
-        holder.itemView.textViewNome.text = ""
-        holder.itemView.textViewEndereco.text = ""
-        holder.itemView.textViewDataReserva.text = ""
+        holder.itemView.textViewNome.text = reserva.cnpj
+        holder.itemView.textViewEndereco.text = reserva.cnpj
+        holder.itemView.textViewDataReserva.text = reserva.qtdReservas.toString() + " Pessoas de " + reserva.horarioInicio.toString() + " as " + reserva.horaioFim.toString() + " data : ${reserva.dia}/${reserva.mes}/${reserva.ano}"
 
-        holder.itemView.buttonReservar.setOnClickListener {
+        holder.itemView.buttonCancelar.setOnClickListener {
             reservas.remove(reservas[position])
             notifyDataSetChanged()
         }
