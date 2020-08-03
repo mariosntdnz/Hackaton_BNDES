@@ -1,6 +1,6 @@
 # Hackaton_BNDES
 Trabalho feito por : <br/>
-Mario(Ciência da Computação UFRRJ)<br/>
+Mario(Ciência da Computação - UFRRJ)<br/>
 Vitor(Engenharia - UVA)<br/>
 Guilherme(SI - UNIRIO)<br/>
 Obs: Só tem commit meu pois com pouco tempo ainda teria que familiarizar eles com o git<br/>
